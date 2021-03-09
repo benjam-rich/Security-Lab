@@ -42,11 +42,11 @@ def FixSQLi():
     maliciousCaneSugar = "1 UNION SELECT ingredients from SecretRecipes;--" # This input is designed to perform SQL injection. Basically it takes the expected cane sugar input and adds additional SQL code to get information from another table in our DB.
 
     sugar = expectedCaneSugar
-    #sugar = maliciousCaneSugar # <---- UNCOMMENT LINE TO PERFORM SQLi ATTACK using malicious input
-    #sql = "SELECT BrandName from Competition WHERE Description LIKE '" + expectedDescription + "' and CaneSugar=" + str(sugar)
+    sugar = maliciousCaneSugar # <---- UNCOMMENT LINE TO PERFORM SQLi ATTACK using malicious input
+    sql = "SELECT BrandName from Competition WHERE Description LIKE :expectedDescription AND CaneSugar= :sugar"
 
-    parameterizedSQL = "SELECT BrandName from Competition WHERE Description LIKE '" + expectedDescription + "' and CaneSugar=" + str(sugar)
-    for row in cursor.execute(parameterizedSQL, {'sugar': sugar,}): # Here we run our parameterized query. The syntax with the comma is required in python because the library is expecting a list for parameters. For 2 or more, just separate the items with commas.
+    #parameterizedSQL = "SELECT BrandName from Competition WHERE Description LIKE '" + expectedDescription + "' and CaneSugar=" + str(sugar)
+    for row in cursor.execute(sql, {'expectedDescription': expectedDescription, 'sugar': sugar,}): # Here we run our parameterized query. The syntax with the comma is required in python because the library is expecting a list for parameters. For 2 or more, just separate the items with commas.
         print(row[0])
 
     # This loop simply prints out the content of the SQL query results
