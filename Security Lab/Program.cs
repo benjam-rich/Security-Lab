@@ -7,7 +7,7 @@ namespace SQLInjection
     class Program
     {
         static void Main(string[] args)
-        {
+        { 
             string pathToDBFile = @"Data Source=WebSecurity.db"; // <== Replace <PATH TO SQLITE DB FILE> to the path of the file on your computer
 
         
