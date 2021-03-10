@@ -100,7 +100,10 @@ namespace SQLInjection
 
             string sugar = expectedCaneSugar;
             //sugar = maliciousCaneSugar; // <---- UNCOMMENT LINE TO PERFORM SQLi ATTACK using malicious input
-            cmd.CommandText = "SELECT BrandName from Competition WHERE Description LIKE '" + expectedDescription + "' and CaneSugar=" + sugar;
+            cmd.CommandText = "SELECT BrandName from Competition WHERE Description LIKE @expectedDescription AND CaneSugar=@sugar"; //  '" + expectedDescription + "' and CaneSugar=" + sugar;
+
+            cmd.Parameters.AddWithValue("@expectedDescription", expectedDescription);
+            cmd.Parameters.AddWithValue("@sugar", sugar);
 
             SQLiteDataReader sqlDR = cmd.ExecuteReader();
 
@@ -110,6 +113,15 @@ namespace SQLInjection
             }
 
             conn.Close();
+
+            //SQLiteDataReader sqlDR = cmd.ExecuteReader();
+
+            //while (sqlDR.Read())
+            //{
+            //    Console.WriteLine(sqlDR.GetString(0));
+            //}
+
+            //conn.Close();
         }
     }
 }

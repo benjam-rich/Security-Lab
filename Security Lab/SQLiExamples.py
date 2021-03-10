@@ -22,7 +22,7 @@ def NotSusceptibleToSQLi():
     maliciousInput = "CA' UNION SELECT ingredients from SecretRecipes;--" # This input is designed to perform SQL injection. Basically it takes the expected input and adds additional SQL code to get information from another table in our DB.
 
     state = expectedInput
-    #state = maliciousInput # <---- UNCOMMENT LINE TO PERFORM SQLi ATTACK using malicious input
+    state = maliciousInput # <---- UNCOMMENT LINE TO PERFORM SQLi ATTACK using malicious input
     parameterizedSQL = "SELECT BrandName FROM Competition WHERE State=?" # This is an example of a parameterized SQL query. The state is not added using "string interpolation".
 
     print('\n~~~Results with Simple Placeholders~~~')
@@ -56,5 +56,5 @@ def FixSQLi():
 
 
 #SusceptibleToSQLi()
-#NotSusceptibleToSQLi()
-FixSQLi()
+NotSusceptibleToSQLi()
+#FixSQLi()
